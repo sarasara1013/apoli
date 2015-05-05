@@ -46,16 +46,13 @@ class SelectViewController: UIViewController {
     func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int) {
         NSLog("call alertView buttonIndex = %d", buttonIndex)
         if buttonIndex == 0{
-            
-            
             //次の画面に遷移するコード
             self.performSegueWithIdentifier("toResultViewController", sender: nil)
         }
     }
     
     @IBAction func back() {
-        self.presentingViewController?.dismissViewControllerAnimated(true, completion:nil)
-        
+        self.navigationController?.popViewControllerAnimated(true);
     }
     
 }

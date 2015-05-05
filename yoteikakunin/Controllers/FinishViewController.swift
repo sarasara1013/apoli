@@ -22,8 +22,8 @@ class FinishViewController: UIViewController {
     }
     
     @IBAction func back() {
-        //戻る処理
-        self.presentingViewController?.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion:nil)
+        
+        self.navigationController?.popToRootViewControllerAnimated(true);
     }
     
     
