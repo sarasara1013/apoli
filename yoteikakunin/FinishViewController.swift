@@ -1,5 +1,5 @@
 //
-//  InputViewController.swift
+//  FinishViewController.swift
 //  yoteikakunin
 //
 //  Created by reina on 2015/05/04.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InputViewController: UIViewController {
+class FinishViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +32,11 @@ class InputViewController: UIViewController {
     }
     */
 
-   @IBAction func back() {
+
+@IBAction func back() {
     //戻る処理
-    self.presentingViewController?.dismissViewControllerAnimated(true, completion:nil)
-    }
+    self.presentingViewController?.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion:nil)
+}
+    
     
 }
