@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3782A38D1AF98D7B004FBAFE /* IMG_2771.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3782A38C1AF98D7B004FBAFE /* IMG_2771.PNG */; };
+		3782A38F1AF98E74004FBAFE /* pro.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3782A38E1AF98E74004FBAFE /* pro.PNG */; };
+		3782A3911AF98EA0004FBAFE /* IMG_2770.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3782A3901AF98EA0004FBAFE /* IMG_2770.PNG */; };
+		3782A3931AF98FEC004FBAFE /* Back_45.png in Resources */ = {isa = PBXBuildFile; fileRef = 3782A3921AF98FEC004FBAFE /* Back_45.png */; };
+		3782A3951AF99603004FBAFE /* handhand_07.png in Resources */ = {isa = PBXBuildFile; fileRef = 3782A3941AF99603004FBAFE /* handhand_07.png */; };
 		37BCB1471AF88D5F0099DEF8 /* appo!.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BCB1401AF88D5F0099DEF8 /* appo!.png */; };
 		37BCB1481AF88D5F0099DEF8 /* appoli.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BCB1411AF88D5F0099DEF8 /* appoli.png */; };
 		37BCB1491AF88D5F0099DEF8 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BCB1421AF88D5F0099DEF8 /* check.png */; };
@@ -48,6 +53,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3782A38C1AF98D7B004FBAFE /* IMG_2771.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_2771.PNG; sourceTree = "<group>"; };
+		3782A38E1AF98E74004FBAFE /* pro.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pro.PNG; sourceTree = "<group>"; };
+		3782A3901AF98EA0004FBAFE /* IMG_2770.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_2770.PNG; sourceTree = "<group>"; };
+		3782A3921AF98FEC004FBAFE /* Back_45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Back_45.png; sourceTree = "<group>"; };
+		3782A3941AF99603004FBAFE /* handhand_07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = handhand_07.png; sourceTree = "<group>"; };
 		37BCB1401AF88D5F0099DEF8 /* appo!.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appo!.png"; sourceTree = "<group>"; };
 		37BCB1411AF88D5F0099DEF8 /* appoli.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appoli.png; sourceTree = "<group>"; };
 		37BCB1421AF88D5F0099DEF8 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
@@ -119,6 +129,11 @@
 				37BCB1431AF88D5F0099DEF8 /* friend.png */,
 				37BCB14E1AF8A4180099DEF8 /* Koruri-Bold.ttf */,
 				37D957231AF8BC3900DBA737 /* Registration2.png */,
+				3782A3901AF98EA0004FBAFE /* IMG_2770.PNG */,
+				3782A3941AF99603004FBAFE /* handhand_07.png */,
+				3782A38C1AF98D7B004FBAFE /* IMG_2771.PNG */,
+				3782A3921AF98FEC004FBAFE /* Back_45.png */,
+				3782A38E1AF98E74004FBAFE /* pro.PNG */,
 				37D9571D1AF8B58100DBA737 /* registration.png */,
 				37D9571F1AF8B8E600DBA737 /* add-friends_42.png */,
 				37BCB14F1AF8A4180099DEF8 /* Koruri-Extrabold.ttf */,
@@ -331,12 +346,16 @@
 				37BCB1491AF88D5F0099DEF8 /* check.png in Resources */,
 				37BCB14D1AF88D5F0099DEF8 /* migi.png in Resources */,
 				37D957241AF8BC3900DBA737 /* Registration2.png in Resources */,
+				3782A38D1AF98D7B004FBAFE /* IMG_2771.PNG in Resources */,
+				3782A38F1AF98E74004FBAFE /* pro.PNG in Resources */,
 				37D99AA51AF72231008279BF /* Main.storyboard in Resources */,
 				37BCB14A1AF88D5F0099DEF8 /* friend.png in Resources */,
+				3782A3911AF98EA0004FBAFE /* IMG_2770.PNG in Resources */,
 				37BCB1551AF8A4180099DEF8 /* Koruri-Light.ttf in Resources */,
 				37BCB1471AF88D5F0099DEF8 /* appo!.png in Resources */,
 				37D9571E1AF8B58100DBA737 /* registration.png in Resources */,
 				37BCB1561AF8A4180099DEF8 /* Koruri-Regular.ttf in Resources */,
+				3782A3931AF98FEC004FBAFE /* Back_45.png in Resources */,
 				37BCB1541AF8A4180099DEF8 /* Koruri-Extrabold.ttf in Resources */,
 				37BCB15B1AF8A75F0099DEF8 /* steelfish rg.ttf in Resources */,
 				37BCB1571AF8A4180099DEF8 /* Koruri-Semibold.ttf in Resources */,
@@ -344,6 +363,7 @@
 				37D99AAA1AF72231008279BF /* LaunchScreen.xib in Resources */,
 				37BCB1481AF88D5F0099DEF8 /* appoli.png in Resources */,
 				37BCB14B1AF88D5F0099DEF8 /* hidari.png in Resources */,
+				3782A3951AF99603004FBAFE /* handhand_07.png in Resources */,
 				37D99AA71AF72231008279BF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
