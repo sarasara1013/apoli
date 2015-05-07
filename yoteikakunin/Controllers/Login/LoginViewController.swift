@@ -8,12 +8,17 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
+    
+    @IBOutlet var loginIDTextField: UITextField!
+    @IBOutlet var loginPassTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        loginIDTextField.delegate = self
+        loginPassTextField.delegate = self
+        loginPassTextField.secureTextEntry = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,15 +26,63 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: TextField Delegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
-    */
-
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        UIView.animateWithDuration(0.2, delay: 0.0, options: nil, animations: {
+            self.view.center = CGPointMake(self.view.center.x, self.view.center.y - 150)
+        }, completion: nil)
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        UIView.animateWithDuration(0.2, delay: 0.0, options: nil, animations: {
+            self.view.center = CGPointMake(self.view.center.x, self.view.center.y + 150)
+            }, completion: nil)
+    }
+    
+    // MARK: Private
+    @IBAction func login() {
+        SVProgressHUD.showWithStatus("Sending...", maskType: SVProgressHUDMaskType.Black)
+        
+        var object: PFObject = PFObject(className: "Picture")
+        object["title"] = "駅のホームより"
+        var imageData: NSData = UIImageJPEGRepresentation(UIImage(named: "image.jpg"), 0.1)
+        var file: PFFile = PFFile(name: "image.jpg", data: imageData)
+        object["graphicFile"] = file
+        object.saveInBackgroundWithBlock { (succeeded, error) -> Void in
+            if succeeded {
+                SVProgressHUD.dismiss()
+            }else {
+                self.showAlert(error!)
+                SVProgressHUD.dismiss()
+            }
+        }
+    }
+    
+    func showAlert(error: NSError) {
+        var alertController = UIAlertController(title: "UIAlertControllerStyle.Alert", message: "Error", preferredStyle: .Alert)
+        
+        let reloadAction = UIAlertAction(title: "はい", style: .Default) {
+            action in
+            self.login
+        }
+        let cancelAction = UIAlertAction(title: "いいえ", style: .Cancel) {
+            action in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        // addActionした順に左から右にボタンが配置されます
+        alertController.addAction(reloadAction)
+        alertController.addAction(cancelAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func backToTop() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }

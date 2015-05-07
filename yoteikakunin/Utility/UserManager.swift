@@ -9,6 +9,12 @@
 import UIKit
 
 class UserManager: NSObject {
+    
+    var name: String!
+    var userID: String!
+    var pass: String!
+    var image: UIImage!
+    
     class var sharedInstance: UserManager {
         struct Static {
             static let instance: UserManager = UserManager()
@@ -17,6 +23,9 @@ class UserManager: NSObject {
     }
     
     override init() {
-        
+        name = ""
+        userID = ""
+        pass = ""
+        image = nil
     }
 }

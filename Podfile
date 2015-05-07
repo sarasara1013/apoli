@@ -3,6 +3,7 @@
 
 target 'yoteikakunin' do
 pod 'Parse', '~> 1.7.2.1'
+pod 'SVProgressHUD', '~> 1.1.3'
 end
 
 target 'yoteikakuninTests' do

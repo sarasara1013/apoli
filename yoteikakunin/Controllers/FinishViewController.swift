@@ -23,7 +23,8 @@ class FinishViewController: UIViewController {
     
     @IBAction func back() {
         
-        self.navigationController?.popToRootViewControllerAnimated(true);
+        //self.navigationController?.popToRootViewControllerAnimated(true);
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     
