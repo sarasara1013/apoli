@@ -27,14 +27,59 @@ class TopViewController: UIViewController {
             self.performSegueWithIdentifier("toLogin", sender: nil)
         }else {
             self.performSegueWithIdentifier("toSend", sender: nil)
-             NSLog("PFUser.currentUser() == %@", PFUser.currentUser()!)
         }
     }
     
-    @IBAction func signOut() {
-        PFUser.logOut()
-        PFUser.currentUser()?.delete()
-        SVProgressHUD.showSuccessWithStatus("ログアウトしました", maskType: SVProgressHUDMaskType.Black)
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func pushCheck() {
+        if (PFUser.currentUser() == nil) {
+            self.performSegueWithIdentifier("toLogin", sender: nil)
+        }else {
+            self.performSegueWithIdentifier("toCheck", sender: nil)
+        }
+    }
+    
+    @IBAction func pushFriend() {
+        if (PFUser.currentUser() == nil) {
+            self.performSegueWithIdentifier("toLogin", sender: nil)
+        }else {
+            self.performSegueWithIdentifier("toFriend", sender: nil)
+        }
+    }
+    
+    @IBAction func signIn() {
+        if (PFUser.currentUser() == nil) {
+            self.performSegueWithIdentifier("toLogin", sender: nil)
+        }else {
+            let alert = UIAlertView()
+            alert.title = "サインアウト"
+            alert.message = "すでにログインしています。\nログアウトしますか？"
+            alert.delegate = self
+            alert.addButtonWithTitle("ログアウト")
+            alert.addButtonWithTitle("キャンセル")
+            alert.show()
+        }
+    }
+
+    func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int) {
+        if buttonIndex == 0 {
+            self.signOut()            
+        }else if buttonIndex == 1 {
+            
+        }
+    }
+    
+    func signOut() {
+        SVProgressHUD.showWithStatus("処理中...", maskType: SVProgressHUDMaskType.Black)
+        PFUser.logOutInBackgroundWithBlock {
+            error in
+            
+            if error != nil {
+                println("Log out error")
+            } else {
+                PFUser.currentUser()?.delete()
+                SVProgressHUD.showSuccessWithStatus("ログアウトしました", maskType: SVProgressHUDMaskType.Black)
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
     }
 }

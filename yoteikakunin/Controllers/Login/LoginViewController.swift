@@ -46,38 +46,33 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Private
     @IBAction func login() {
-        SVProgressHUD.showWithStatus("Sending...", maskType: SVProgressHUDMaskType.Black)
-        
-        var object: PFObject = PFObject(className: "Picture")
-        object["title"] = "駅のホームより"
-        var imageData: NSData = UIImageJPEGRepresentation(UIImage(named: "image.jpg"), 0.1)
-        var file: PFFile = PFFile(name: "image.jpg", data: imageData)
-        object["graphicFile"] = file
-        object.saveInBackgroundWithBlock { (succeeded, error) -> Void in
-            if succeeded {
-                SVProgressHUD.dismiss()
-            }else {
+        SVProgressHUD.showWithStatus("ログイン中...", maskType: SVProgressHUDMaskType.Black)
+
+        PFUser.logInWithUsernameInBackground(loginIDTextField.text, password: loginPassTextField.text) {
+            (user, error) -> Void in
+            if user != nil {
+                println("existed user")
+                SVProgressHUD.showSuccessWithStatus("ログイン成功!", maskType: SVProgressHUDMaskType.Black)
+                self.dismissViewControllerAnimated(true, completion: nil)
+            } else {
+                println("not existed user")
                 self.showAlert(error!)
-                SVProgressHUD.dismiss()
             }
         }
     }
     
     func showAlert(error: NSError) {
-        var alertController = UIAlertController(title: "UIAlertControllerStyle.Alert", message: "Error", preferredStyle: .Alert)
         
-        let reloadAction = UIAlertAction(title: "はい", style: .Default) {
-            action in
-            self.login
-        }
-        let cancelAction = UIAlertAction(title: "いいえ", style: .Cancel) {
+        let message: String = String(format: "%@が理由でログインできませんでした", error.description)
+        var alertController = UIAlertController(title: "ログインエラー", message: message, preferredStyle: .Alert)
+
+        let okAction = UIAlertAction(title: "OK", style: .Cancel) {
             action in
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
         // addActionした順に左から右にボタンが配置されます
-        alertController.addAction(reloadAction)
-        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
         
         presentViewController(alertController, animated: true, completion: nil)
     }

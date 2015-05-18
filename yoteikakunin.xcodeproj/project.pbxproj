@@ -16,6 +16,8 @@
 		37D99AC21AF75AC5008279BF /* SelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D99AC11AF75AC5008279BF /* SelectViewController.swift */; };
 		37D99AC41AF78DB1008279BF /* FinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D99AC31AF78DB1008279BF /* FinishViewController.swift */; };
 		7DA0569C46E4C7722F7BA076 /* libPods-yoteikakunin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6796720B9D40647EE8ADF0E0 /* libPods-yoteikakunin.a */; };
+		AF4755391B0302E100A21F64 /* GeoUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4755381B0302E100A21F64 /* GeoUtility.swift */; };
+		AF84A93F1B07BFE000D2EC6F /* ListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF84A93E1B07BFE000D2EC6F /* ListTableView.swift */; };
 		AF921AC61AF8846E00C48469 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF921AC51AF8846E00C48469 /* UserManager.swift */; };
 		AF921ACC1AF8861900C48469 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF921ACB1AF8861900C48469 /* LoginViewController.swift */; };
 		AF921AD61AF8A33A00C48469 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF921AD51AF8A33A00C48469 /* SignUpViewController.swift */; };
@@ -70,6 +72,7 @@
 		AF921B491AF99E8C00C48469 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF921B341AF99E8C00C48469 /* iTunesArtwork@2x.png */; };
 		AF921B4E1AFB40FB00C48469 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF921B4D1AFB40FB00C48469 /* FriendsViewController.swift */; };
 		AF921B501AFB411800C48469 /* CheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF921B4F1AFB411800C48469 /* CheckViewController.swift */; };
+		AF921B521AFB72C600C48469 /* mappin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF921B511AFB72C600C48469 /* mappin@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,11 +100,13 @@
 		37D99AC31AF78DB1008279BF /* FinishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishViewController.swift; sourceTree = "<group>"; };
 		48FF1AFD2B4DDA0F5D47EA00 /* Pods-yoteikakunin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yoteikakunin.release.xcconfig"; path = "Pods/Target Support Files/Pods-yoteikakunin/Pods-yoteikakunin.release.xcconfig"; sourceTree = "<group>"; };
 		6796720B9D40647EE8ADF0E0 /* libPods-yoteikakunin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-yoteikakunin.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF2B982D1B09C63300A3899C /* yoteikakunin-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "yoteikakunin-Bridging-Header.h"; sourceTree = "<group>"; };
+		AF4755381B0302E100A21F64 /* GeoUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoUtility.swift; sourceTree = "<group>"; };
+		AF84A93E1B07BFE000D2EC6F /* ListTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableView.swift; sourceTree = "<group>"; };
 		AF921AC51AF8846E00C48469 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		AF921ACB1AF8861900C48469 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		AF921AD01AF89BFA00C48469 /* yoteikakunin-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "yoteikakunin-Bridging-Header.h"; path = "../yoteikakunin-Bridging-Header.h"; sourceTree = "<group>"; };
 		AF921AD51AF8A33A00C48469 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		AF921ADB1AF8AADE00C48469 /* noimage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = noimage.jpg; path = ../../noimage.jpg; sourceTree = "<group>"; };
+		AF921ADB1AF8AADE00C48469 /* noimage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noimage.jpg; sourceTree = "<group>"; };
 		AF921ADE1AF9113C00C48469 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		AF921ADF1AF9113C00C48469 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 		AF921AE01AF9113C00C48469 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
@@ -150,8 +155,9 @@
 		AF921B321AF99E8C00C48469 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		AF921B331AF99E8C00C48469 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		AF921B341AF99E8C00C48469 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
-		AF921B4D1AFB40FB00C48469 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendsViewController.swift; path = yoteikakunin/FriendsViewController.swift; sourceTree = SOURCE_ROOT; };
-		AF921B4F1AFB411800C48469 /* CheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckViewController.swift; path = yoteikakunin/CheckViewController.swift; sourceTree = SOURCE_ROOT; };
+		AF921B4D1AFB40FB00C48469 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		AF921B4F1AFB411800C48469 /* CheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckViewController.swift; sourceTree = "<group>"; };
+		AF921B511AFB72C600C48469 /* mappin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mappin@2x.png"; sourceTree = "<group>"; };
 		E70F23573823342493603B6A /* Pods-yoteikakunin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yoteikakunin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yoteikakunin/Pods-yoteikakunin.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -197,9 +203,10 @@
 		37D99A9C1AF72231008279BF /* yoteikakunin */ = {
 			isa = PBXGroup;
 			children = (
+				37D99A9F1AF72231008279BF /* AppDelegate.swift */,
 				AF921ACD1AF8865200C48469 /* Resources */,
 				AF921AC31AF883BF00C48469 /* Utility */,
-				37D99A9F1AF72231008279BF /* AppDelegate.swift */,
+				AF84DA221B07B77F00578339 /* Views */,
 				AF921AC41AF8844E00C48469 /* Controllers */,
 				37D99AA31AF72231008279BF /* Main.storyboard */,
 				37D99AA61AF72231008279BF /* Images.xcassets */,
@@ -212,8 +219,8 @@
 		37D99A9D1AF72231008279BF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AF921AD01AF89BFA00C48469 /* yoteikakunin-Bridging-Header.h */,
 				37D99A9E1AF72231008279BF /* Info.plist */,
+				AF2B982D1B09C63300A3899C /* yoteikakunin-Bridging-Header.h */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -252,10 +259,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AF84DA221B07B77F00578339 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AF84A93E1B07BFE000D2EC6F /* ListTableView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		AF921AC31AF883BF00C48469 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				AF921AC51AF8846E00C48469 /* UserManager.swift */,
+				AF4755381B0302E100A21F64 /* GeoUtility.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -332,6 +348,7 @@
 				AF921B1F1AF99E8C00C48469 /* ios */,
 				AF921ADB1AF8AADE00C48469 /* noimage.jpg */,
 				AF921B1B1AF99E0100C48469 /* back.png */,
+				AF921B511AFB72C600C48469 /* mappin@2x.png */,
 				AF921B1C1AF99E0100C48469 /* icon.jpg */,
 				AF921AE71AF99A1D00C48469 /* add-friends_42.png */,
 				AF921AE81AF99A1D00C48469 /* appo!.png */,
@@ -511,6 +528,7 @@
 				AF921B3B1AF99E8C00C48469 /* Icon-60@3x.png in Resources */,
 				AF921B0C1AF99A1D00C48469 /* Koruri-Extrabold.ttf in Resources */,
 				AF921AE11AF9113C00C48469 /* Default-568h@2x.png in Resources */,
+				AF921B521AFB72C600C48469 /* mappin@2x.png in Resources */,
 				AF921B451AF99E8C00C48469 /* Icon-Small-50@2x.png in Resources */,
 				AF921B031AF99A1D00C48469 /* Back_45.png in Resources */,
 				37D99AA71AF72231008279BF /* Images.xcassets in Resources */,
@@ -578,6 +596,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF921ACC1AF8861900C48469 /* LoginViewController.swift in Sources */,
+				AF84A93F1B07BFE000D2EC6F /* ListTableView.swift in Sources */,
 				AF921AC61AF8846E00C48469 /* UserManager.swift in Sources */,
 				AF921AD61AF8A33A00C48469 /* SignUpViewController.swift in Sources */,
 				AF921B501AFB411800C48469 /* CheckViewController.swift in Sources */,
@@ -587,6 +606,7 @@
 				AF921B4E1AFB40FB00C48469 /* FriendsViewController.swift in Sources */,
 				37D99AC01AF75A09008279BF /* InputViewController.swift in Sources */,
 				37D99AA01AF72231008279BF /* AppDelegate.swift in Sources */,
+				AF4755391B0302E100A21F64 /* GeoUtility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -717,7 +737,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "yoteikakunin/yoteikakunin-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "yoteikakunin/Supporting Files/yoteikakunin-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -732,7 +752,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "yoteikakunin/yoteikakunin-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "yoteikakunin/Supporting Files/yoteikakunin-Bridging-Header.h";
 			};
 			name = Release;
 		};
