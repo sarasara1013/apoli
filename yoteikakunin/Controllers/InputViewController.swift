@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InputViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
+class InputViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate, DWTagListDelegate, UITextViewDelegate {
     
     var listArray = [String]()
     var locationManager: CLLocationManager!
@@ -17,7 +17,9 @@ class InputViewController: UIViewController, UITextFieldDelegate, CLLocationMana
     @IBOutlet var timeTextField: UITextField!
     @IBOutlet var placeTextField: UITextField!
     @IBOutlet var mapPinButton: UIButton!
-    @IBOutlet var listTableView: UITableView!
+    @IBOutlet var listView: DWTagList!
+    @IBOutlet var commentTextView: UITextView!
+    //@IBOutlet var listTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,20 +27,29 @@ class InputViewController: UIViewController, UITextFieldDelegate, CLLocationMana
         if (locationManager == nil) {
             locationManager = CLLocationManager()
         }
-        locationManager.delegate = self
         
+        locationManager.delegate = self
         dateTextField.delegate = self
         timeTextField.delegate = self
         placeTextField.delegate = self
+        listView.delegate = self
+        commentTextView.delegate = self
+        
+        listView.layer.borderWidth = 1.0
+        listView.layer.borderColor = UIColor.blackColor().CGColor
+        commentTextView.layer.borderWidth = 1.0
+        commentTextView.layer.borderColor = UIColor.blackColor().CGColor
         
         placeTextField.adjustsFontSizeToFitWidth = true;
         // FIXME: Can't adjust width size
         placeTextField.minimumFontSize = 0.2
         
+        listView.userInteractionEnabled = true
+        
         let tapGesture = UITapGestureRecognizer(
             target: self, action: "tapGesture:")
         self.view.addGestureRecognizer(tapGesture)
-
+        
         self.initializeDateTextFieldWithDatePicker()
         self.initializeTimeTextFieldWithDatePicker()
         
@@ -91,8 +102,59 @@ class InputViewController: UIViewController, UITextFieldDelegate, CLLocationMana
         timeTextField.text = formatter.stringFromDate(datePicker.date)
     }
     
+    // MARK: TagList
+    @IBAction func addTag() {
+        if UIResponder.getCurrentFirstResponder() != nil {
+            UIResponder.getCurrentFirstResponder()?.resignFirstResponder()
+        }else {
+            let alert = UIAlertView()
+            alert.title = "もちものを追加"
+            //alert.message = ""
+            alert.alertViewStyle = UIAlertViewStyle.PlainTextInput
+            alert.delegate = self
+            alert.addButtonWithTitle("キャンセル")
+            alert.addButtonWithTitle("追加")
+            alert.show()
+        }
+    }
+
+    func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int) {
+        if buttonIndex == 0 {
+            
+        }else if buttonIndex == 1 {
+            listArray.append(alertView.textFieldAtIndex(0)!.text)
+            listView.setTags(listArray)
+        }
+    }
     
-    //MARK: Private
+    // MARK: TagListDelegate
+    func selectedTag(tagName: String!, tagIndex: Int) {
+        NSLog("tagName %@", tagName)
+        NSLog("tagIndex %d", tagIndex)
+    }
+    
+    // MARK: TextView Delegate
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        UIView.animateWithDuration(0.2, delay: 0.0, options: nil, animations: {
+            self.view.center = CGPointMake(self.view.center.x, self.view.center.y - 150)
+            }, completion: nil)
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        UIView.animateWithDuration(0.2, delay: 0.0, options: nil, animations: {
+            self.view.center = CGPointMake(self.view.center.x, self.view.center.y + 150)
+            }, completion: nil)
+    }
+    
+    // MARK: Private
     @IBAction func back() {
         //戻る処理
         self.presentingViewController?.dismissViewControllerAnimated(true, completion:nil)

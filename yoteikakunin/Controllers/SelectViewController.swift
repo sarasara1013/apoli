@@ -10,10 +10,12 @@ import UIKit
 
 class SelectViewController: UIViewController {
     
+    @IBOutlet var friendsTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        friendsTableView.layer.borderWidth = 1.0
+        friendsTableView.layer.borderColor = UIColor.blackColor().CGColor
     }
     
     override func didReceiveMemoryWarning() {
@@ -23,7 +25,7 @@ class SelectViewController: UIViewController {
     
     @IBAction func plus(){
         let alert = UIAlertView()
-        alert.title = "警告"
+        alert.title = "確認"
         alert.message = "送信しますか？"
         alert.delegate = self
         alert.addButtonWithTitle("送信")

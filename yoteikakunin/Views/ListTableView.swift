@@ -47,7 +47,6 @@ class ListTableView: UITableView, UITableViewDelegate, UITableViewDataSource, UI
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "ListCell")
         }
 
-
         self.inputField = cell!.viewWithTag(1) as! UITextField
         self.inputField.delegate = self;
         //self.inputField.placeholder = "もちものを入力"

@@ -12,6 +12,8 @@
             <string>SteelfishRg-Regular</string>
             <string>SteelfishRg-Regular</string>
             <string>SteelfishRg-Regular</string>
+            <string>SteelfishRg-Regular</string>
+            <string>SteelfishRg-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -94,26 +96,6 @@
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="35" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="hgU-hS-Tdu" customClass="ListTableView" customModule="yoteikakunin" customModuleProvider="target">
-                                <rect key="frame" x="41" y="258" width="240" height="105"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListCell" rowHeight="35" id="xqQ-ru-FAX">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xqQ-ru-FAX" id="9FR-Bu-tdQ">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q7v-2q-e0n">
-                                                    <rect key="frame" x="8" y="2" width="224" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Appo!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zkK-JE-di2">
                                 <rect key="frame" x="94" y="7" width="132" height="72"/>
                                 <fontDescription key="fontDescription" name="SteelfishRg-Regular" family="Steelfish" pointSize="55"/>
@@ -153,13 +135,29 @@
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tuk-pG-M5Q" customClass="DWTagList">
+                                <rect key="frame" x="41" y="258" width="240" height="105"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lrG-Ef-oQw">
+                                <rect key="frame" x="249" y="223" width="30" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addTag" destination="4v0-bo-z53" eventType="touchUpInside" id="MZC-Az-I8q"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.52156862745098043" green="0.67843137254901964" blue="0.63137254901960782" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="DFh-CR-C5L"/>
                     <connections>
+                        <outlet property="commentTextView" destination="TRk-nV-fJ2" id="aB5-hT-7Pz"/>
                         <outlet property="dateTextField" destination="4br-0F-s8E" id="zsr-n1-hc6"/>
-                        <outlet property="listTableView" destination="hgU-hS-Tdu" id="EfG-0j-3iL"/>
+                        <outlet property="listView" destination="tuk-pG-M5Q" id="CsL-CP-KCV"/>
                         <outlet property="mapPinButton" destination="cpt-VV-zQ7" id="tGN-9K-I7W"/>
                         <outlet property="placeTextField" destination="9Ae-Bg-Srb" id="qaL-cb-elX"/>
                         <outlet property="timeTextField" destination="XBk-Hi-qex" id="Xkt-nK-LT6"/>
@@ -213,14 +211,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Friend List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EI3-1s-oaH">
-                                <rect key="frame" x="94" y="0.0" width="139" height="72"/>
-                                <fontDescription key="fontDescription" name="SteelfishRg-Regular" family="Steelfish" pointSize="55"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="79" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="iF5-qB-BIz">
-                                <rect key="frame" x="40" y="92" width="240" height="351"/>
+                                <rect key="frame" x="0.0" y="92" width="320" height="351"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="79" id="GYk-sv-u2o">
@@ -232,11 +224,18 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Friend List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EI3-1s-oaH">
+                                <rect key="frame" x="91" y="0.0" width="139" height="72"/>
+                                <fontDescription key="fontDescription" name="SteelfishRg-Regular" family="Steelfish" pointSize="55"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.52156862745098043" green="0.67843137254901964" blue="0.63137254901960782" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="lYg-UX-aVZ"/>
                     <connections>
+                        <outlet property="friendsTableView" destination="iF5-qB-BIz" id="y0Z-7w-r1e"/>
                         <segue destination="Grh-1A-F7V" kind="push" identifier="toResultViewController" id="XYE-We-w4U"/>
                     </connections>
                 </viewController>
@@ -648,10 +647,10 @@
             </objects>
             <point key="canvasLocation" x="388" y="1343"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Friend View Controller-->
         <scene sceneID="z0o-0c-hVr">
             <objects>
-                <viewController id="CTz-IL-6ja" sceneMemberID="viewController">
+                <viewController id="CTz-IL-6ja" customClass="AddFriendViewController" customModule="yoteikakunin" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l96-4M-kM4"/>
                         <viewControllerLayoutGuide type="bottom" id="eYb-fQ-WPc"/>
@@ -659,9 +658,48 @@
                     <view key="view" contentMode="scaleToFill" id="8wC-c8-mTE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="79" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cuU-ot-eBf">
+                                <rect key="frame" x="0.0" y="152" width="320" height="307"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="79" id="NkA-WB-NWE">
+                                        <rect key="frame" x="0.0" y="0.0" width="297" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NkA-WB-NWE" id="56m-a3-Lnt">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ci-6N-AI8">
+                                <rect key="frame" x="0.0" y="108" width="320" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="36y-2g-wz4">
+                                <rect key="frame" x="16" y="492" width="77" height="68"/>
+                                <state key="normal" backgroundImage="hidari.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="back" destination="CTz-IL-6ja" eventType="touchUpInside" id="Tec-FL-BST"/>
+                                    <action selector="backToTop" destination="AHQ-Th-kbH" eventType="touchUpInside" id="nzk-8Y-Ie9"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Friend" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hur-Pa-G8H">
+                                <rect key="frame" x="90" y="20" width="141" height="72"/>
+                                <fontDescription key="fontDescription" name="SteelfishRg-Regular" family="Steelfish" pointSize="55"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="0.45490196078431372" green="0.61960784313725492" blue="0.56470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="6gC-eS-f0t"/>
+                    <connections>
+                        <outlet property="friendsSearchBar" destination="5ci-6N-AI8" id="Atm-Pv-f5O"/>
+                        <outlet property="resultTableView" destination="cuU-ot-eBf" id="Kc0-dS-rib"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SPM-Vx-ySe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -686,10 +724,10 @@
             </objects>
             <point key="canvasLocation" x="-136" y="625"/>
         </scene>
-        <!--View Controller-->
+        <!--Friend List View Controller-->
         <scene sceneID="CZD-a6-lrI">
             <objects>
-                <viewController id="wBx-go-EtA" sceneMemberID="viewController">
+                <viewController id="wBx-go-EtA" customClass="FriendListViewController" customModule="yoteikakunin" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L08-Lg-eYI"/>
                         <viewControllerLayoutGuide type="bottom" id="50o-wF-7cM"/>
@@ -697,6 +735,37 @@
                     <view key="view" contentMode="scaleToFill" id="ljr-zo-sEo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="79" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Mzg-fc-bre">
+                                <rect key="frame" x="0.0" y="108" width="320" height="351"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="79" id="QmR-yX-asT">
+                                        <rect key="frame" x="0.0" y="0.0" width="297" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QmR-yX-asT" id="r3E-cJ-glN">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="teh-le-ZTN">
+                                <rect key="frame" x="16" y="480" width="77" height="68"/>
+                                <state key="normal" backgroundImage="hidari.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="back" destination="wBx-go-EtA" eventType="touchUpInside" id="dDS-F8-ouz"/>
+                                    <action selector="backToTop" destination="AHQ-Th-kbH" eventType="touchUpInside" id="HSZ-uu-gR2"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Friend List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rqx-Er-I2W">
+                                <rect key="frame" x="91" y="20" width="139" height="72"/>
+                                <fontDescription key="fontDescription" name="SteelfishRg-Regular" family="Steelfish" pointSize="55"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="0.4549019608" green="0.61960784310000006" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="ERr-aU-tKt"/>
