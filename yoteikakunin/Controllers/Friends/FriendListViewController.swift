@@ -25,7 +25,7 @@ class FriendListViewController: UIViewController, UITableViewDelegate, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
-    // Parseからデータの取得
+    // Get data from Parse
     func loadData(){
         var usersData: PFQuery = PFQuery(className: "User")
         usersData.findObjectsInBackgroundWithBlock{
