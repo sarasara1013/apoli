@@ -114,16 +114,25 @@ class InputViewController: UIViewController, UITextFieldDelegate, CLLocationMana
             alert.delegate = self
             alert.addButtonWithTitle("キャンセル")
             alert.addButtonWithTitle("追加")
+            alert.tag = 1
             alert.show()
         }
     }
 
     func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int) {
-        if buttonIndex == 0 {
-            
-        }else if buttonIndex == 1 {
-            listArray.append(alertView.textFieldAtIndex(0)!.text)
-            listView.setTags(listArray)
+        if alertView.tag == 1 {
+            if buttonIndex == 0 {
+            }else if buttonIndex == 1 {
+                if count(alertView.textFieldAtIndex(0)!.text) > 0 {
+                    listArray.append(alertView.textFieldAtIndex(0)!.text)
+                    listView.setTags(listArray)
+                }
+            }
+        }else if alertView.tag == 2 {
+            if buttonIndex == 0 {
+            }else if buttonIndex == 1 {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
         }
     }
     
@@ -156,21 +165,24 @@ class InputViewController: UIViewController, UITextFieldDelegate, CLLocationMana
     
     // MARK: Private
     @IBAction func back() {
-        //戻る処理
-        self.presentingViewController?.dismissViewControllerAnimated(true, completion:nil)
+        let alert = UIAlertView()
+        alert.title = "トップに戻る"
+        alert.message = "入力内容を破棄してトップに戻ります。\nよろしいですか？"
+        alert.alertViewStyle = UIAlertViewStyle.Default
+        alert.delegate = self
+        alert.addButtonWithTitle("キャンセル")
+        alert.addButtonWithTitle("内容を破棄して戻る")
+        alert.tag = 2
+        alert.show()
     }
     
     @IBAction func getCurrentPrace() {
-        
         SVProgressHUD.showWithStatus("現在地の取得中...", maskType: SVProgressHUDMaskType.Black)
-        
         let locationManager = INTULocationManager.sharedInstance()
         locationManager.requestLocationWithDesiredAccuracy(INTULocationAccuracy.City,
             timeout: 10.0,
             block: { (currentLocation:CLLocation!, achievedAccuracy:INTULocationAccuracy, status:INTULocationStatus) -> Void in
-                
                 GeoUtility().reverseGeocoding(currentLocation.coordinate)
-                
                 switch (status) {
                 case .Success:
                     
@@ -180,7 +192,6 @@ class InputViewController: UIViewController, UITextFieldDelegate, CLLocationMana
                 default:
                     break
                 }
-                
                 SVProgressHUD.dismiss()
         })
     }
@@ -191,14 +202,11 @@ class InputViewController: UIViewController, UITextFieldDelegate, CLLocationMana
     }
     
     func showAlert() {
-        
         var alertController = UIAlertController(title: "タイムアウト", message: "通信がタイムアウトしました。電波状況等を再確認してリトライして下さい。", preferredStyle: .Alert)
-        
         let okAction = UIAlertAction(title: "OK", style: .Cancel) {
             action in
             self.dismissViewControllerAnimated(true, completion: nil)
         }
-        
         alertController.addAction(okAction)
         presentViewController(alertController, animated: true, completion: nil)
     }

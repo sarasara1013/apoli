@@ -15,7 +15,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         loginIDTextField.delegate = self
         loginPassTextField.delegate = self
         loginPassTextField.secureTextEntry = true
@@ -47,7 +46,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: Private
     @IBAction func login() {
         SVProgressHUD.showWithStatus("ログイン中...", maskType: SVProgressHUDMaskType.Black)
-
         PFUser.logInWithUsernameInBackground(loginIDTextField.text, password: loginPassTextField.text) {
             (user, error) -> Void in
             if user != nil {
@@ -71,9 +69,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
-        // addActionした順に左から右にボタンが配置されます
         alertController.addAction(okAction)
-        
         presentViewController(alertController, animated: true, completion: nil)
     }
     

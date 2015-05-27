@@ -11,10 +11,11 @@ import UIKit
 class FriendListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var friendListTableView: UITableView!
-    var friends: FriendManager! = FriendManager()
+    var friendArray = [AnyObject]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        friendListTableView.dataSource = self
         friendListTableView.delegate = self
         
         self.loadData()
@@ -27,31 +28,44 @@ class FriendListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // Get data from Parse
     func loadData(){
-        var usersData: PFQuery = PFQuery(className: "User")
-        usersData.findObjectsInBackgroundWithBlock{
-            (objects:[AnyObject]?, error:NSError?) -> Void in
+        SVProgressHUD.showWithStatus("ロード中", maskType: SVProgressHUDMaskType.Black)
+        
+        var usersData: PFQuery = PFQuery(className: "_User")
+        usersData.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
             
             if error != nil {
+                NSLog("%@", error!.description)
+            }else {
                 for object in objects! {
-                    object.valueForKey("username")
+                    
+                    var user = PFUser.currentUser()
+                    if user?.username == object.valueForKey("username") as? PFUser {
+                        NSLog("currentUser == %@", user!.username!)
+                    }else {
+                        self.friendArray.append(object.valueForKey("username")!)
+                    }
                 }
-                
                 self.friendListTableView.reloadData()
+                SVProgressHUD.dismiss()
             }
         }
     }
+
     
     // MARK: TableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return friendArray.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("ListCell", forIndexPath: indexPath) as? UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("FriendCell", forIndexPath: indexPath) as? UITableViewCell
         
         if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "ListCell")
+            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "FriendCell")
         }
+        
+        cell?.textLabel!.text = friendArray[indexPath.row] as? String
         
         return cell!
     }

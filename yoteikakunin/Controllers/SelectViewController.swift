@@ -23,7 +23,7 @@ class SelectViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func plus(){
+    @IBAction func plus() {
         let alert = UIAlertView()
         alert.title = "確認"
         alert.message = "送信しますか？"
@@ -33,11 +33,9 @@ class SelectViewController: UIViewController {
         alert.show()
     }
     
-    //UIAlertViewDelegateの実装
     func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int) {
         NSLog("call alertView buttonIndex = %d", buttonIndex)
         if buttonIndex == 0{
-            //次の画面に遷移するコード
             self.performSegueWithIdentifier("toResultViewController", sender: nil)
         }
     }

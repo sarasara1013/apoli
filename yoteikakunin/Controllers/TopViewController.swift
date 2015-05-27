@@ -75,7 +75,15 @@ class TopViewController: UIViewController {
             
             if error != nil {
                 println("Log out error")
-            } else {
+                
+                // セッショントークン切れ
+                if error?.code == 209 {
+                    // TODO: enableRevocableSession ムズい
+                    PFUser.enableRevocableSessionInBackgroundWithBlock { (error: NSError?) -> Void in
+                        println("IDK")
+                    }
+                }
+            }else {
                 PFUser.currentUser()?.delete()
                 SVProgressHUD.showSuccessWithStatus("ログアウトしました", maskType: SVProgressHUDMaskType.Black)
                 self.dismissViewControllerAnimated(true, completion: nil)

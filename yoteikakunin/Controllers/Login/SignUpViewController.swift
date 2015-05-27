@@ -18,7 +18,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         userIDTextField.delegate = self
         userPassTextField.delegate = self
         userPassTextField.secureTextEntry = true
@@ -56,36 +55,32 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
     }
     
     @IBAction func signUp() {
-        SVProgressHUD.showWithStatus("登録中...", maskType: SVProgressHUDMaskType.Black)
-        
-        var object: PFObject = PFObject(className: "UserInfo")
-        object["UserName"] = userIDTextField.text
-        UserManager.sharedInstance.userID = userIDTextField.text
-        
-        var imageData: NSData = UIImageJPEGRepresentation(UserManager.sharedInstance.image, 0.1)
-        var userImageData: NSData = UIImagePNGRepresentation(UserManager.sharedInstance.image)
-        var file: PFFile = PFFile(data: userImageData)
-        object["imageFile"] = file
-        object.saveInBackgroundWithBlock { (succeeded, error) -> Void in
-            if succeeded {
-                self.registerUser()
-                SVProgressHUD.dismiss()
-            }else {
-                self.showAlert(error!)
-                SVProgressHUD.dismiss()
-            }
-        }
-        
+
+        self.registerUser()
     }
     
     func registerUser() {
+        SVProgressHUD.showWithStatus("登録中...", maskType: SVProgressHUDMaskType.Black)
         var user = PFUser()
         user.username = userIDTextField.text
         user.password = userPassTextField.text
         user.signUpInBackgroundWithBlock { (succeeded, error) -> Void in
             if error == nil {
-                SVProgressHUD.showSuccessWithStatus("登録完了!")
-                self.dismiss()
+                var imageData: NSData = UIImageJPEGRepresentation(UserManager.sharedInstance.image, 0.1)
+                var userImageData: NSData = UIImagePNGRepresentation(UserManager.sharedInstance.image)
+                var file: PFFile = PFFile(data: userImageData)
+                user.setObject(file, forKey: "imageFile")
+                user.saveInBackgroundWithBlock { (succeeded, error) -> Void in
+                    if succeeded {
+                        SVProgressHUD.showSuccessWithStatus("登録完了!")
+                        SVProgressHUD.dismiss()
+                        self.dismiss()
+                    }else {
+                        NSLog("error == %@", error!)
+                        self.showAlert(error!)
+                        SVProgressHUD.dismiss()
+                    }
+                }
             } else {
                 self.showAlert(error!)
             }
@@ -96,7 +91,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         self.dismiss()
     }
     
-    func dismiss () {
+    func dismiss() {
         self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -113,7 +108,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         }
         alertController.addAction(reloadAction)
         alertController.addAction(cancelAction)
-        
         presentViewController(alertController, animated: true, completion: nil)
     }
     
