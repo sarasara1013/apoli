@@ -11,7 +11,6 @@ import UIKit
 class TopViewController: UIViewController {
     
     var userData: UserManager = UserManager.sharedInstance
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,6 +65,15 @@ class TopViewController: UIViewController {
         }else if buttonIndex == 1 {
             
         }
+        
+        var number: Int = 0
+        if number >= 10 {
+            
+        }else if number <= -10 {
+            
+        }else {
+            
+        }
     }
     
     func signOut() {
@@ -80,7 +88,7 @@ class TopViewController: UIViewController {
                 if error?.code == 209 {
                     // TODO: enableRevocableSession ムズい
                     PFUser.enableRevocableSessionInBackgroundWithBlock { (error: NSError?) -> Void in
-                        println("IDK")
+                        println("Session token deprecated")
                     }
                 }
             }else {
