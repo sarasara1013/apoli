@@ -32,15 +32,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
+        /*
         UIView.animateWithDuration(0.2, delay: 0.0, options: nil, animations: {
             self.view.center = CGPointMake(self.view.center.x, self.view.center.y - 150)
         }, completion: nil)
+        */
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
+        /*
         UIView.animateWithDuration(0.2, delay: 0.0, options: nil, animations: {
             self.view.center = CGPointMake(self.view.center.x, self.view.center.y + 150)
             }, completion: nil)
+        */
     }
     
     // MARK: Private
@@ -55,15 +59,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             } else {
                 println("not existed user")
                 self.showAlert(error!)
+                //self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
     }
     
     func showAlert(error: NSError) {
         
-        let message: String = String(format: "%@が理由でログインできませんでした", error.description)
+        var message: String = error.description
+        
+        if SVProgressHUD.isVisible() {
+            SVProgressHUD.dismiss()
+        }
+        
+        if error.code == 101 {
+            message = "ユーザーが見つかりませんでした。IDとパスワードを再確認してログインして下さい。"
+        }
+        
         var alertController = UIAlertController(title: "ログインエラー", message: message, preferredStyle: .Alert)
-
         let okAction = UIAlertAction(title: "OK", style: .Cancel) {
             action in
             self.dismissViewControllerAnimated(true, completion: nil)

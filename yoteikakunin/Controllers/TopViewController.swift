@@ -65,15 +65,6 @@ class TopViewController: UIViewController {
         }else if buttonIndex == 1 {
             
         }
-        
-        var number: Int = 0
-        if number >= 10 {
-            
-        }else if number <= -10 {
-            
-        }else {
-            
-        }
     }
     
     func signOut() {
@@ -86,6 +77,9 @@ class TopViewController: UIViewController {
                 
                 // セッショントークン切れ
                 if error?.code == 209 {
+                    PFUser.currentUser()?.delete()
+                    SVProgressHUD.showSuccessWithStatus("ログアウトしました", maskType: SVProgressHUDMaskType.Black)
+                    self.dismissViewControllerAnimated(true, completion: nil)
                     // TODO: enableRevocableSession ムズい
                     PFUser.enableRevocableSessionInBackgroundWithBlock { (error: NSError?) -> Void in
                         println("Session token deprecated")

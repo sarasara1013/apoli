@@ -70,6 +70,10 @@ class FriendListViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
     @IBAction func back() {
         //self.navigationController?.popToRootViewControllerAnimated(true);
         self.dismissViewControllerAnimated(true, completion: nil)

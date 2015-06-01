@@ -77,6 +77,8 @@
 		AF921B4E1AFB40FB00C48469 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF921B4D1AFB40FB00C48469 /* FriendsViewController.swift */; };
 		AF921B501AFB411800C48469 /* CheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF921B4F1AFB411800C48469 /* CheckViewController.swift */; };
 		AF921B521AFB72C600C48469 /* mappin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF921B511AFB72C600C48469 /* mappin@2x.png */; };
+		AFBE19291B1C34E000252CE3 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBE19271B1C34E000252CE3 /* FriendsCell.swift */; };
+		AFBE192A1B1C34E000252CE3 /* FriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFBE19281B1C34E000252CE3 /* FriendsCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +168,8 @@
 		AF921B4D1AFB40FB00C48469 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		AF921B4F1AFB411800C48469 /* CheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckViewController.swift; sourceTree = "<group>"; };
 		AF921B511AFB72C600C48469 /* mappin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mappin@2x.png"; sourceTree = "<group>"; };
+		AFBE19271B1C34E000252CE3 /* FriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
+		AFBE19281B1C34E000252CE3 /* FriendsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendsCell.xib; sourceTree = "<group>"; };
 		E70F23573823342493603B6A /* Pods-yoteikakunin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yoteikakunin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yoteikakunin/Pods-yoteikakunin.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -212,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				37D99A9F1AF72231008279BF /* AppDelegate.swift */,
+				AFBE19241B1C343800252CE3 /* Models */,
 				AF921ACD1AF8865200C48469 /* Resources */,
 				AF921AC31AF883BF00C48469 /* Utility */,
 				AF84DA221B07B77F00578339 /* Views */,
@@ -271,6 +276,8 @@
 			isa = PBXGroup;
 			children = (
 				AF84A93E1B07BFE000D2EC6F /* ListTableView.swift */,
+				AFBE19271B1C34E000252CE3 /* FriendsCell.swift */,
+				AFBE19281B1C34E000252CE3 /* FriendsCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -423,6 +430,13 @@
 			path = AppIcon.appiconset;
 			sourceTree = "<group>";
 		};
+		AFBE19241B1C343800252CE3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -534,6 +548,7 @@
 				AF921B161AF99A1D00C48469 /* registration_35.png in Resources */,
 				AF921B111AF99A1D00C48469 /* longloginnew_31.png in Resources */,
 				AF921B0D1AF99A1D00C48469 /* Koruri-Light.ttf in Resources */,
+				AFBE192A1B1C34E000252CE3 /* FriendsCell.xib in Resources */,
 				AF921B041AF99A1D00C48469 /* check.png in Resources */,
 				AF921B101AF99A1D00C48469 /* login.png in Resources */,
 				AF921B421AF99E8C00C48469 /* Icon-72.png in Resources */,
@@ -623,6 +638,7 @@
 				AF2B98321B09E00B00A3899C /* ViewUtility.swift in Sources */,
 				37D99AA01AF72231008279BF /* AppDelegate.swift in Sources */,
 				AF4755391B0302E100A21F64 /* GeoUtility.swift in Sources */,
+				AFBE19291B1C34E000252CE3 /* FriendsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
