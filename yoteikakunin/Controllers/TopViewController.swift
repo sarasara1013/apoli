@@ -50,8 +50,9 @@ class TopViewController: UIViewController {
             self.performSegueWithIdentifier("toLogin", sender: nil)
         }else {
             let alert = UIAlertView()
-            alert.title = "サインアウト"
-            alert.message = "すでにログインしています。\nログアウトしますか？"
+            let message = String(format:"%@でログインしています。\nログアウトしますか？", PFUser.currentUser()!.username!)
+            alert.title = "アカウント設定"
+            alert.message = message
             alert.delegate = self
             alert.addButtonWithTitle("ログアウト")
             alert.addButtonWithTitle("キャンセル")
@@ -63,7 +64,7 @@ class TopViewController: UIViewController {
         if buttonIndex == 0 {
             self.signOut()            
         }else if buttonIndex == 1 {
-            
+            // canceled
         }
     }
     
@@ -74,7 +75,6 @@ class TopViewController: UIViewController {
             
             if error != nil {
                 println("Log out error")
-                
                 // セッショントークン切れ
                 if error?.code == 209 {
                     PFUser.currentUser()?.delete()

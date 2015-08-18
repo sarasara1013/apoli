@@ -21,7 +21,6 @@ class ViewUtility: NSObject {
             if subView.isFirstResponder != nil {
                 return subView as! UIView
             }
-            
             var responder = self.findFirstResponder(subView as! UIView)
             if let responder = responder as UIView? {
                 return responder

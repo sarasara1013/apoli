@@ -36,7 +36,6 @@ class GeoUtility: NSObject {
                 //println("Postal Code = \(placemark.postalCode)")
                 //println("Sub Administrative Area = \(placemark.subAdministrativeArea)")
 
-                
                 placeString = placemark.administrativeArea + placemark.locality + placemark.subLocality + placemark.thoroughfare
                 
             }else if (error == nil && placemarks.count == 0) {

@@ -10,6 +10,7 @@ import UIKit
 
 class AddFriendViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
+    // TODO: サーチ機能
     @IBOutlet var friendsSearchBar: UISearchBar!
     @IBOutlet var resultTableView: UITableView!
     
@@ -18,8 +19,8 @@ class AddFriendViewController: UIViewController, UISearchBarDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        friendsSearchBar.delegate = self
-        friendsSearchBar.placeholder = "ユーザーIDで検索"
+        // friendsSearchBar.delegate = self
+        // friendsSearchBar.placeholder = "ユーザーIDで検索"
         resultTableView.dataSource = self
         resultTableView.delegate = self
         
@@ -37,31 +38,58 @@ class AddFriendViewController: UIViewController, UISearchBarDelegate, UITableVie
         SVProgressHUD.showWithStatus("ロード中", maskType: SVProgressHUDMaskType.Black)
         
         var usersData: PFQuery = PFQuery(className: "_User")
-        //usersData.whereKey("", equalTo: )
-        usersData.findObjectsInBackgroundWithBlock{
-            (objects:[AnyObject]?, error:NSError?) -> Void in
-            
+        usersData.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
             if error != nil {
-                NSLog("%@", error!.description)
+                self.showErrorAlert(error!)
             }else {
                 for object in objects! {
-                    //object.valueForKey("username")
-                    
                     var user = PFUser.currentUser()
-                    
-                    if user?.username == object.valueForKey("username") as? PFUser {
+                    if user?.username == object.valueForKey("username") as? String {
                         NSLog("currentUser == %@", user!.username!)
                     }else {
-                        self.friendArray.append(object.valueForKey("username")!)
+                        NSLog("object == %@", object as! PFUser)
+                        var friendInfo = FriendManager()
+                        friendInfo.name = object.valueForKey("username") as! String
+                        if object["imageFile"] != nil {
+                            let userImageFile = object.valueForKey("imageFile") as! PFFile
+                            friendInfo.image = UIImage(data:userImageFile.getData()!)
+                            self.friendArray.append(friendInfo)
+                        }
                     }
                 }
-                
                 self.resultTableView.reloadData()
                 SVProgressHUD.dismiss()
             }
-            
         }
     }
+    
+    func showErrorAlert(error: NSError) {
+        var errorMessage = error.description
+        
+        if error.code == 209 {
+            NSLog("session token == %@", PFUser.currentUser()!.sessionToken!)
+            errorMessage = "セッショントークンが切れました。ログアウトします。"
+            PFUser.currentUser()?.delete()
+            SVProgressHUD.showSuccessWithStatus("ログアウトしました", maskType: SVProgressHUDMaskType.Black)
+            self.dismissViewControllerAnimated(true, completion: nil)
+            PFUser.enableRevocableSessionInBackgroundWithBlock { (error: NSError?) -> Void in
+                println("Session token deprecated")
+            }
+        }
+        var alertController = UIAlertController(title: "通信エラー", message: errorMessage, preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Cancel) {
+            action in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        alertController.addAction(okAction)
+        presentViewController(alertController, animated: true, completion: nil)
+        
+        if SVProgressHUD.isVisible() {
+            SVProgressHUD.dismiss()
+        }
+    }
+    
     
     // MARK: SearchBar Delegate
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
@@ -108,16 +136,77 @@ class AddFriendViewController: UIViewController, UISearchBarDelegate, UITableVie
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "FriendCell")
         }
         
-        //self.inputField = cell!.viewWithTag(1) as! UITextField
+        cell?.imageView?.layer.cornerRadius = 30
+        cell?.imageView?.layer.masksToBounds = true
+        cell?.clipsToBounds = true
         
-        cell?.textLabel?.text = String(format: "%@", friendArray[indexPath.row] as! String)
+        //self.inputField = cell!.viewWithTag(1) as! UITextField
+        var friendInfo = friendArray[indexPath.row] as! FriendManager
+        cell?.imageView?.image = friendInfo.image
+        cell?.textLabel?.text = friendInfo.name
         
         return cell!
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.followFriend(indexPath)
+        // self.unfollowFriend(indexPath)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     
     @IBAction func back() {
         self.navigationController?.popToRootViewControllerAnimated(true);
-        //self.dismissViewControllerAnimated(true, completion: nil)
+        // self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    func followFriend(indexPath: NSIndexPath) {
+        var query: PFQuery = PFQuery(className: "_User")
+        SVProgressHUD.showWithStatus("友だち登録中...")
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            for object in (objects as! [PFObject]) {
+                if(error == nil) {
+                    if object.valueForKey("username") as? String == PFUser.currentUser()?.username {
+                        var friendInfo = self.friendArray[indexPath.row] as! FriendManager
+                        object.addUniqueObject(friendInfo.name, forKey: "following")
+                        object.saveInBackgroundWithBlock { (succeeded, error) -> Void in
+                            if succeeded == true {
+                                SVProgressHUD.showSuccessWithStatus("友だち登録しました")
+                            }else {
+                                NSLog("エラー %@", error!.description)
+                            }
+                        }
+                    }else{
+                        NSLog("エラー %@", error!.description)
+                        // SVProgressHUD.showErrorWithStatus(error?.description)
+                    }
+                }
+            }
+        }
+    }
+    
+    // TODO: フォロー解除
+    func unfollowFriend(indexPath: NSIndexPath) {
+        var query: PFQuery = PFQuery(className: "_User")
+        SVProgressHUD.showWithStatus("友だち解除中...")
+        query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            for object in (objects as! [PFObject]) {
+                if(error == nil){
+                    if object.valueForKey("username") as? String == PFUser.currentUser()?.username {
+                        var friendInfo = self.friendArray[indexPath.row] as! FriendManager
+                        object.removeObject(friendInfo.name, forKey: "following")
+                            object.saveInBackgroundWithBlock { (succeeded, error) -> Void in
+                                if succeeded == true {
+                                    SVProgressHUD.showSuccessWithStatus("友だち登録を解除しました")
+                                }
+                            }
+                    }
+                }else{
+                    SVProgressHUD.showErrorWithStatus(error?.description)
+                }
+            }
+        }
+    }
+    
+    // TODO: TableViewCellと全体のデザインの調整
 }

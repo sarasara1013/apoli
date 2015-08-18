@@ -15,6 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        
+        Parse.enableLocalDatastore()
+        
         Parse.setApplicationId("FA9JFUKHTjv4LDMmh5u4sN5olIVFEm0Ci8F49SGN",
             clientKey: "cHYYQ7tOZzT0Qo88hlQH0zj1WaDACyBEYu57Gm38")
         //PFUser.enableAutomaticUser()
@@ -23,6 +27,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var defaultACL = PFACL()
         defaultACL.setPublicReadAccess(true)
         PFACL.setDefaultACL(defaultACL, withAccessForCurrentUser: true)
+        
+        if application.applicationState != UIApplicationState.Background {
+
+            let preBackgroundPush = !application.respondsToSelector("backgroundRefreshStatus")
+            let oldPushHandlerOnly = !self.respondsToSelector("application:didReceiveRemoteNotification:fetchCompletionHandler:")
+            var noPushPayload = false;
+            if let options = launchOptions {
+                noPushPayload = options[UIApplicationLaunchOptionsRemoteNotificationKey] != nil;
+            }
+            if (preBackgroundPush || oldPushHandlerOnly || noPushPayload) {
+                //PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
+                PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
+            }
+        }
+        if application.respondsToSelector("registerUserNotificationSettings:") {
+            let userNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound
+            let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+            application.registerUserNotificationSettings(settings)
+            application.registerForRemoteNotifications()
+        } else {
+            let types = UIRemoteNotificationType.Badge | UIRemoteNotificationType.Alert | UIRemoteNotificationType.Sound
+            application.registerForRemoteNotificationTypes(types)
+        }
+        
         return true
     }
 
@@ -47,7 +75,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    
+    // MARK: Push Notifications
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let installation = PFInstallation.currentInstallation()
+        installation.setDeviceTokenFromData(deviceToken)
+        installation.saveInBackgroundWithBlock { (succeeded, error) -> Void in
+            if error != nil {
+                // TODO: GoogleAnalytics
+                println("parsePushUserAssign save error.")
+            }else {
+                // TODO: GoogleAnalytics
+            }
+        }
+        
+        PFPush.subscribeToChannelInBackground("", block: { (succeeded, error) -> Void in
+            if succeeded {
+                // TODO: GoogleAnalytics
+                println("ParseStarterProject successfully subscribed to push notifications on the broadcast channel.");
+            } else {
+                // TODO: GoogleAnalytics
+                println("ParseStarterProject failed to subscribe to push notifications on the broadcast channel with error = %@.", error)
+            }
+        })
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        if error.code == 3010 {
+            println("Push notifications are not supported in the iOS Simulator.")
+        } else {
+            println("application:didFailToRegisterForRemoteNotificationsWithError: %@", error)
+        }
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        NSLog("プッシュ == %@", userInfo)
+        
+        PFPush.handlePush(userInfo)
+    }
 }
 

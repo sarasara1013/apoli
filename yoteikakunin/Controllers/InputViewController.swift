@@ -35,8 +35,8 @@ class InputViewController: UIViewController, UITextFieldDelegate, CLLocationMana
         listView.delegate = self
         commentTextView.delegate = self
         
-        listView.layer.borderWidth = 1.0
-        listView.layer.borderColor = UIColor.blackColor().CGColor
+        //listView.layer.borderWidth = 1.0
+        //listView.layer.borderColor = UIColor.blackColor().CGColor
         commentTextView.layer.borderWidth = 1.0
         commentTextView.layer.borderColor = UIColor.blackColor().CGColor
         

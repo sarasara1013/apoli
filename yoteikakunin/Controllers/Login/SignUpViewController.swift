@@ -45,12 +45,11 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
     
     // MARK: UIImagePickerController Delegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        if info[UIImagePickerControllerOriginalImage] != nil {
+        if info[UIImagePickerControllerEditedImage] != nil {
             let image: UIImage = info[UIImagePickerControllerEditedImage] as! UIImage
             userImageView.image = image
             UserManager.sharedInstance.image = image
         }
-        
         picker.dismissViewControllerAnimated(true, completion: nil);
     }
     
@@ -66,7 +65,8 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         user.password = userPassTextField.text
         user.signUpInBackgroundWithBlock { (succeeded, error) -> Void in
             if error == nil {
-                var imageData: NSData = UIImageJPEGRepresentation(UserManager.sharedInstance.image, 0.1)
+                var resizedImage = UserManager.sharedInstance.image.resize(CGSizeMake(120, 120))
+                var imageData: NSData = UIImageJPEGRepresentation(resizedImage, 1.0)
                 var userImageData: NSData = UIImagePNGRepresentation(UserManager.sharedInstance.image)
                 var file: PFFile = PFFile(data: userImageData)
                 user.setObject(file, forKey: "imageFile")
