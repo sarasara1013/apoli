@@ -50,6 +50,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
             userImageView.image = image
             UserManager.sharedInstance.image = image
         }
+        
         picker.dismissViewControllerAnimated(true, completion: nil);
     }
     
@@ -72,8 +73,13 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
                 user.setObject(file, forKey: "imageFile")
                 user.saveInBackgroundWithBlock { (succeeded, error) -> Void in
                     if succeeded {
-                        SVProgressHUD.showSuccessWithStatus("登録完了!")
-                        SVProgressHUD.dismiss()
+                        PFPush.subscribeToChannelInBackground(PFUser.currentUser()?.username, block: { (success, error) -> Void in
+                            if success == true {
+                                SVProgressHUD.showSuccessWithStatus("登録完了!")
+                            }else {
+                                SVProgressHUD.showErrorWithStatus("登録失敗!")
+                            }
+                        })
                         self.dismiss()
                     }else {
                         NSLog("error == %@", error!)

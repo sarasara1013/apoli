@@ -50,27 +50,32 @@ class FriendListViewController: UIViewController, UITableViewDelegate, UITableVi
             }else {
                 for object in objects! {
                     if object.valueForKey("username") as? String == PFUser.currentUser()?.username {
-                        self.friendNameArray = object.valueForKey("following") as! Array
-                        
-                        for following in self.friendNameArray {
-                            var userData: PFQuery = PFQuery(className: "_User")
-                            userData.whereKey("username", equalTo: following)
-                            userData.findObjectsInBackgroundWithBlock {
-                                (objects: [AnyObject]?, error: NSError?) -> Void in
-                                if error != nil {
-                                    NSLog("Error == %@", error!)
-                                }else {
-                                    for friend in objects! {
-                                        var friendInfo = FriendManager()
-                                        friendInfo.name = friend.valueForKey("username") as! String
-                                        let userImageFile = friend.valueForKey("imageFile") as! PFFile
-                                        friendInfo.image = UIImage(data:userImageFile.getData()!)
-                                        self.friendArray.append(friendInfo)
+                        if object.valueForKey("following") != nil {
+                            self.friendNameArray = object.valueForKey("following") as! Array
+                            
+                            for following in self.friendNameArray {
+                                var userData: PFQuery = PFQuery(className: "_User")
+                                userData.whereKey("username", equalTo: following)
+                                userData.findObjectsInBackgroundWithBlock {
+                                    (objects: [AnyObject]?, error: NSError?) -> Void in
+                                    if error != nil {
+                                        NSLog("Error == %@", error!)
+                                    }else {
+                                        for friend in objects! {
+                                            var friendInfo = FriendManager()
+                                            friendInfo.name = friend.valueForKey("username") as! String
+                                            let userImageFile = friend.valueForKey("imageFile") as! PFFile
+                                            friendInfo.image = UIImage(data:userImageFile.getData()!)
+                                            self.friendArray.append(friendInfo)
+                                        }
                                     }
+                                    self.friendListTableView.reloadData()
+                                    SVProgressHUD.dismiss()
                                 }
-                                self.friendListTableView.reloadData()
-                                SVProgressHUD.dismiss()
                             }
+                        }else {
+                            self.friendListTableView.reloadData()
+                            SVProgressHUD.dismiss()
                         }
                     }
                 }

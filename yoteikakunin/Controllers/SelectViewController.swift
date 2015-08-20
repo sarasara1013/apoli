@@ -12,6 +12,7 @@ class SelectViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var selectedNumber: Int = 0
     var friendArray = [AnyObject]()
+    var friendNameArray = [String]()
     var selectedFriendsName = [String]()
     
     @IBOutlet var friendsTableView: UITableView!
@@ -113,6 +114,49 @@ class SelectViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     // MARK: Private
+    // Get data from Parse
+    func loadData(){
+        SVProgressHUD.showWithStatus("ロード中", maskType: SVProgressHUDMaskType.Black)
+        
+        var friendsData: PFQuery = PFQuery(className: "_User")
+        friendsData.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+            if error != nil {
+                self.showErrorAlert(error!)
+            }else {
+                for object in objects! {
+                    if object.valueForKey("username") as? String == PFUser.currentUser()?.username {
+                        self.friendNameArray = object.valueForKey("following") as! Array
+                        
+                        for following in self.friendNameArray {
+                            var userData: PFQuery = PFQuery(className: "_User")
+                            userData.whereKey("username", equalTo: following)
+                            userData.findObjectsInBackgroundWithBlock {
+                                (objects: [AnyObject]?, error: NSError?) -> Void in
+                                if error != nil {
+                                    NSLog("Error == %@", error!)
+                                }else {
+                                    for friend in objects! {
+                                        var friendInfo = FriendManager()
+                                        friendInfo.name = friend.valueForKey("username") as! String
+                                        let userImageFile = friend.valueForKey("imageFile") as! PFFile
+                                        friendInfo.image = UIImage(data:userImageFile.getData()!)
+                                        self.friendArray.append(friendInfo)
+                                    }
+                                }
+                                self.friendsTableView.reloadData()
+                                SVProgressHUD.dismiss()
+                            }
+                        }
+                    }
+                }
+                // self.friendListTableView.reloadData()
+                // SVProgressHUD.dismiss()
+            }
+        }
+    }
+    
+    /*
     func loadData(){
         SVProgressHUD.showWithStatus("ロード中", maskType: SVProgressHUDMaskType.Black)
         // Get data from Parse
@@ -142,6 +186,7 @@ class SelectViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
     }
+    */
     
     func showErrorAlert(error: NSError) {
         var errorMessage = error.description
@@ -193,15 +238,15 @@ class SelectViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: Send Push
     func sendPush() {
         //PFPush.sendPushDataToChannelInBackground(, withData: , block: )
-        let query = PFQuery(className: "_User")
         
-        // TODO: 選択したユーザーをqueryにセットして送信
-        query.whereKey("objectId", notEqualTo: PFUser.currentUser()!.objectId!)
-        var push: PFPush = PFPush()
-        push.setQuery(query)
-        var message = String(format: "%@さんからメッセージが届きました。", PFUser.currentUser()!.username!)
-        push.setMessage(message)
-        push.sendPush(nil)
+        for friend in selectedFriendsName {
+            
+            var push: PFPush = PFPush()
+            push.setChannel(friend)
+            var message = String(format: "%@さんからメッセージが届きました。", PFUser.currentUser()!.username!)
+            push.setMessage(message)
+            push.sendPush(nil)
+        }
         println("Push Notification Sent")
     }
 }

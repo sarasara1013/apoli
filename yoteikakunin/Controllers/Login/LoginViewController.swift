@@ -53,10 +53,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         PFUser.logInWithUsernameInBackground(loginIDTextField.text, password: loginPassTextField.text) {
             (user, error) -> Void in
             if user != nil {
-                println("existed user")
-                SVProgressHUD.showSuccessWithStatus("ログイン成功!", maskType: SVProgressHUDMaskType.Black)
+                PFPush.subscribeToChannelInBackground(PFUser.currentUser()?.username, block: { (success, error) -> Void in
+                    if success == true {
+                        SVProgressHUD.showSuccessWithStatus("ログイン成功!", maskType: SVProgressHUDMaskType.Black)
+                    }else {
+                        SVProgressHUD.showErrorWithStatus("ログイン失敗!", maskType: SVProgressHUDMaskType.Black)
+                    }
+                })
                 self.dismissViewControllerAnimated(true, completion: nil)
-            } else {
+            }else {
                 println("not existed user")
                 self.showAlert(error!)
                 //self.dismissViewControllerAnimated(true, completion: nil)
@@ -76,14 +81,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             message = "ユーザーが見つかりませんでした。IDとパスワードを再確認してログインして下さい。"
         }
         
-        var alertController = UIAlertController(title: "ログインエラー", message: message, preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Cancel) {
-            action in
-            self.dismissViewControllerAnimated(true, completion: nil)
+        if objc_getClass("UIAlertController") != nil {
+            var alertController = UIAlertController(title: "ログインエラー", message: message, preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: "OK", style: .Cancel) {
+                action in
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+            
+            alertController.addAction(okAction)
+            presentViewController(alertController, animated: true, completion: nil)
+        } else {
+            //UIAlertView使用
+            var av = UIAlertView(title: "ログインエラー", message: message, delegate: nil, cancelButtonTitle: "OK")
+            av.show()
         }
-        
-        alertController.addAction(okAction)
-        presentViewController(alertController, animated: true, completion: nil)
     }
     
     @IBAction func backToTop() {

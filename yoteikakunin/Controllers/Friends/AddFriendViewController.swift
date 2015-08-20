@@ -174,11 +174,9 @@ class AddFriendViewController: UIViewController, UISearchBarDelegate, UITableVie
                                 SVProgressHUD.showSuccessWithStatus("友だち登録しました")
                             }else {
                                 NSLog("エラー %@", error!.description)
+                                SVProgressHUD.showErrorWithStatus(error?.description)
                             }
                         }
-                    }else{
-                        NSLog("エラー %@", error!.description)
-                        // SVProgressHUD.showErrorWithStatus(error?.description)
                     }
                 }
             }

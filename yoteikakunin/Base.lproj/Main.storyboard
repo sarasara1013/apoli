@@ -148,7 +148,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="d8v-e2-ymt" kind="push" id="UhD-dW-uzU"/>
+                                    <action selector="goNext" destination="4v0-bo-z53" eventType="touchUpInside" id="71h-v0-RdE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -162,6 +162,7 @@
                         <outlet property="mapPinButton" destination="cpt-VV-zQ7" id="tGN-9K-I7W"/>
                         <outlet property="placeTextField" destination="9Ae-Bg-Srb" id="qaL-cb-elX"/>
                         <outlet property="timeTextField" destination="XBk-Hi-qex" id="Xkt-nK-LT6"/>
+                        <segue destination="d8v-e2-ymt" kind="push" identifier="toSelect" id="YHu-C8-njN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iTa-E9-LsM" userLabel="First Responder" sceneMemberID="firstResponder"/>

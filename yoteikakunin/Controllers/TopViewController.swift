@@ -85,6 +85,7 @@ class TopViewController: UIViewController {
                         println("Session token deprecated")
                     }
                 }
+                SVProgressHUD.showErrorWithStatus("電波状況の良い場所でリトライして下さい")
             }else {
                 PFUser.currentUser()?.delete()
                 SVProgressHUD.showSuccessWithStatus("ログアウトしました", maskType: SVProgressHUDMaskType.Black)

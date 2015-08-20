@@ -165,15 +165,19 @@ class InputViewController: UIViewController, UITextFieldDelegate, CLLocationMana
     
     // MARK: Private
     @IBAction func back() {
-        let alert = UIAlertView()
-        alert.title = "トップに戻る"
-        alert.message = "入力内容を破棄してトップに戻ります。\nよろしいですか？"
-        alert.alertViewStyle = UIAlertViewStyle.Default
-        alert.delegate = self
-        alert.addButtonWithTitle("キャンセル")
-        alert.addButtonWithTitle("内容を破棄して戻る")
-        alert.tag = 2
-        alert.show()
+        if dateTextField.text != "" || timeTextField.text != "" || placeTextField.text != "" || commentTextView.text != "" {
+            let alert = UIAlertView()
+            alert.title = "トップに戻る"
+            alert.message = "入力内容を破棄してトップに戻ります。\nよろしいですか？"
+            alert.alertViewStyle = UIAlertViewStyle.Default
+            alert.delegate = self
+            alert.addButtonWithTitle("キャンセル")
+            alert.addButtonWithTitle("内容を破棄して戻る")
+            alert.tag = 2
+            alert.show()
+        }else {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     @IBAction func getCurrentPrace() {
@@ -227,6 +231,22 @@ class InputViewController: UIViewController, UITextFieldDelegate, CLLocationMana
                     return
                 }
             }
+        }
+    }
+    
+    // TODO: GO NEXT
+    @IBAction func goNext() {
+        if dateTextField.text == "" || timeTextField.text == "" || placeTextField.text == "" || commentTextView.text == "" {
+            let alert = UIAlertView()
+            alert.title = "入力エラー"
+            alert.message = "入力してください"
+            alert.alertViewStyle = UIAlertViewStyle.Default
+            alert.delegate = self
+            alert.addButtonWithTitle("OK")
+            alert.tag = 3
+            alert.show()
+        }else {
+            self.performSegueWithIdentifier("toSelect", sender: nil)
         }
     }
 }
