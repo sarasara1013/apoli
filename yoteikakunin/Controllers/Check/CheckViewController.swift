@@ -20,6 +20,7 @@ class CheckViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet var placeLabel: UILabel!
     @IBOutlet var listView: DWTagList!
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet var timeLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()

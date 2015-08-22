@@ -126,26 +126,28 @@ class SelectViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }else {
                 for object in objects! {
                     if object.valueForKey("username") as? String == PFUser.currentUser()?.username {
-                        self.friendNameArray = object.valueForKey("following") as! Array
-                        
-                        for following in self.friendNameArray {
-                            var userData: PFQuery = PFQuery(className: "_User")
-                            userData.whereKey("username", equalTo: following)
-                            userData.findObjectsInBackgroundWithBlock {
-                                (objects: [AnyObject]?, error: NSError?) -> Void in
-                                if error != nil {
-                                    NSLog("Error == %@", error!)
-                                }else {
-                                    for friend in objects! {
-                                        var friendInfo = FriendManager()
-                                        friendInfo.name = friend.valueForKey("username") as! String
-                                        let userImageFile = friend.valueForKey("imageFile") as! PFFile
-                                        friendInfo.image = UIImage(data:userImageFile.getData()!)
-                                        self.friendArray.append(friendInfo)
+                        if object.valueForKey("following") != nil {
+                            self.friendNameArray = object.valueForKey("following") as! Array
+                            
+                            for following in self.friendNameArray {
+                                var userData: PFQuery = PFQuery(className: "_User")
+                                userData.whereKey("username", equalTo: following)
+                                userData.findObjectsInBackgroundWithBlock {
+                                    (objects: [AnyObject]?, error: NSError?) -> Void in
+                                    if error != nil {
+                                        NSLog("Error == %@", error!)
+                                    }else {
+                                        for friend in objects! {
+                                            var friendInfo = FriendManager()
+                                            friendInfo.name = friend.valueForKey("username") as! String
+                                            let userImageFile = friend.valueForKey("imageFile") as! PFFile
+                                            friendInfo.image = UIImage(data:userImageFile.getData()!)
+                                            self.friendArray.append(friendInfo)
+                                        }
                                     }
+                                    self.friendsTableView.reloadData()
+                                    SVProgressHUD.dismiss()
                                 }
-                                self.friendsTableView.reloadData()
-                                SVProgressHUD.dismiss()
                             }
                         }
                     }
@@ -155,38 +157,6 @@ class SelectViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
     }
-    
-    /*
-    func loadData(){
-        SVProgressHUD.showWithStatus("ロード中", maskType: SVProgressHUDMaskType.Black)
-        // Get data from Parse
-        var usersData: PFQuery = PFQuery(className: "_User")
-        usersData.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
-            if error != nil {
-                self.showErrorAlert(error!)
-            }else {
-                for object in objects! {
-                    var user = PFUser.currentUser()
-                    if user?.username == object.valueForKey("username") as? String {
-                        NSLog("currentUser == %@", user!.username!)
-                    }else {
-                        NSLog("object == %@", object as! PFUser)
-                        var friendInfo = FriendManager()
-                        friendInfo.name = object.valueForKey("username") as! String
-                        if object["imageFile"] != nil {
-                            let userImageFile = object.valueForKey("imageFile") as! PFFile
-                            friendInfo.image = UIImage(data:userImageFile.getData()!)
-                            self.friendArray.append(friendInfo)
-                        }
-                    }
-                }
-                self.friendsTableView.reloadData()
-                SVProgressHUD.dismiss()
-            }
-        }
-    }
-    */
     
     func showErrorAlert(error: NSError) {
         var errorMessage = error.description
@@ -238,13 +208,16 @@ class SelectViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: Send Push
     func sendPush() {
         //PFPush.sendPushDataToChannelInBackground(, withData: , block: )
-        
         for friend in selectedFriendsName {
             
             var push: PFPush = PFPush()
             push.setChannel(friend)
+            let data :Dictionary<String, String> = ["date": "2014/12/24", "time": "10:10", "latitude": "135", "longitude": "128", "list": "", "alert": ""]
+            /*
             var message = String(format: "%@さんからメッセージが届きました。", PFUser.currentUser()!.username!)
             push.setMessage(message)
+             */
+            push.setData(data)
             push.sendPush(nil)
         }
         println("Push Notification Sent")
